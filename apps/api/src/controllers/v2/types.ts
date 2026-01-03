@@ -21,7 +21,10 @@ import { ErrorCodes } from "../../lib/error";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { integrationSchema } from "../../utils/integration";
-import { webhookSchema } from "../../services/webhook/schema";
+import {
+  webhookSchema,
+  createWebhookSchema,
+} from "../../services/webhook/schema";
 import { BrandingProfile } from "../../types/branding";
 
 // Base URL schema with common validation logic
@@ -711,6 +714,14 @@ export const extractRequestSchema = extractOptions;
 export type ExtractRequest = z.infer<typeof extractRequestSchema>;
 export type ExtractRequestInput = z.input<typeof extractRequestSchema>;
 
+const agentWebhookSchema = createWebhookSchema([
+  "started",
+  "action",
+  "completed",
+  "failed",
+  "cancelled",
+]);
+
 export const agentRequestSchema = z.strictObject({
   urls: URL.array().optional(),
   prompt: z.string().max(10000),
@@ -738,6 +749,7 @@ export const agentRequestSchema = z.strictObject({
   integration: integrationSchema.optional().transform(val => val || null),
   maxCredits: z.number().optional(),
   strictConstrainToURLs: z.boolean().optional(),
+  webhook: agentWebhookSchema.optional(),
 
   overrideWhitelist: z.string().optional(),
 });

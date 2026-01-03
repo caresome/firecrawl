@@ -101,6 +101,7 @@ export async function agentController(
         isFreeRequest,
         maxCredits: req.body.maxCredits ?? undefined,
         strictConstrainToURLs: req.body.strictConstrainToURLs ?? undefined,
+        webhook: req.body.webhook ?? undefined,
       }),
     },
   );
