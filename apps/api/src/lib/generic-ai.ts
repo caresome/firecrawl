@@ -57,9 +57,16 @@ export function getModel(name: string, provider: Provider = defaultProvider) {
   if (name === "gemini-2.5-pro") {
     name = "gemini-2.5-pro";
   }
-  return config.MODEL_NAME
-    ? providerList[provider](config.MODEL_NAME)
-    : providerList[provider](name);
+
+  // Determine effective model name
+  const effectiveModel = config.MODEL_NAME || name;
+
+  // Auto-detect Gemini models and route to Google provider
+  if (effectiveModel.startsWith("gemini-") && provider === "openai") {
+    provider = "google";
+  }
+
+  return providerList[provider](effectiveModel);
 }
 
 export function getEmbeddingModel(

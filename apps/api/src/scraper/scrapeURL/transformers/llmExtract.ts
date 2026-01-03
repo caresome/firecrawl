@@ -341,7 +341,8 @@ export async function generateCompletions({
             anthropic: {
               thinking: { type: "enabled", budgetTokens: 12000 },
             },
-            google: {
+            // Note: 'labels' are only supported by Vertex AI, not the public Google Gemini API
+            vertex: {
               labels: {
                 teamId: metadata.teamId,
                 functionId: metadata.functionId ?? "unspecified",
@@ -447,7 +448,8 @@ export async function generateCompletions({
                 anthropic: {
                   thinking: { type: "enabled", budgetTokens: 12000 },
                 },
-                google: {
+                // Note: 'labels' are only supported by Vertex AI, not the public Google Gemini API
+                vertex: {
                   labels: {
                     teamId: metadata.teamId,
                     functionId: metadata.functionId ?? "unspecified",
@@ -618,7 +620,8 @@ export async function generateCompletions({
               anthropic: {
                 thinking: { type: "enabled", budgetTokens: 12000 },
               },
-              google: {
+              // Note: 'labels' are only supported by Vertex AI, not the public Google Gemini API
+              vertex: {
                 labels: {
                   teamId: metadata.teamId,
                   functionId: metadata.functionId ?? "unspecified",
@@ -700,7 +703,8 @@ export async function generateCompletions({
       prompt: prompt,
       providerOptions: {
         ...(providerOptions || {}),
-        google: {
+        // Note: 'labels' are only supported by Vertex AI, not the public Google Gemini API
+        vertex: {
           ...((providerOptions as any)?.vertex || {}),
           labels: {
             ...((providerOptions as any)?.vertex?.labels || {}),

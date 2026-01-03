@@ -159,6 +159,13 @@ export async function getACUC(
     return acuc;
   }
 
+  // Self-hosted API key protection: if FIRECRAWL_API_KEY is set, validate it
+  if (config.FIRECRAWL_API_KEY) {
+    if (api_key !== config.FIRECRAWL_API_KEY) {
+      return null; // Invalid API key
+    }
+  }
+
   if (config.USE_DB_AUTHENTICATION !== true && !config.SUPABASE_ACUC_URL) {
     const acuc = mockACUC();
     acuc.is_extract = isExtract;

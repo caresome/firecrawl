@@ -158,6 +158,9 @@ const configSchema = z.object({
 
   // Testing
   TEST_API_KEY: z.string().optional(),
+
+  // Self-hosted API Key Protection
+  FIRECRAWL_API_KEY: z.string().optional(),
   TEST_API_URL: z.string().default("http://127.0.0.1:3002"),
   TEST_TEAM_ID: z.string().optional(),
   TEST_SUITE_SELF_HOSTED: z.stringbool().optional(),
